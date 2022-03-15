@@ -1,17 +1,21 @@
 #include <WiFi.h>
+#include <WiFiUdp.h>
 #include "mywifi.h"
 
-// const char* ssid = "jmi11";
-// const char* password =  "babababa";
 const char* ssid = "ZZZ";
 const char* password =  "so171tf1";
 const uint16_t port = 1347;
 const char * host = "192.168.134.93";
 
-float debugData[15] = {0};
-const uint8_t nchannel = 1;
+const int udpPort = 1346;
+boolean connected = false;
+WiFiUDP udp;
 
-void wifiSetup()
+float debugData[DEBUGCHANNLE] = {0};
+uint8_t sendSize[] = {0, CN_NUM_DATA, CN_NUM_PAR, CN_NUM_POSE};
+uint8_t sendMode = MODE_NONE;
+
+void tcpSetup()
 {
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
@@ -23,12 +27,80 @@ void wifiSetup()
     Serial.println(WiFi.localIP());
 }
 
-void sendData()
+//justfloat
+void tcpSendData()
 {
     WiFiClient client;
     if (!client.connect(host, port)) {
         Serial.println("Connection to host failed");
+        return;
     }
-    client.printf("%f\n", debugData[0]);
+    if(sendMode < sizeof(sendSize) / sizeof(sendSize[0])) {
+        client.write((uint8_t *)debugData, sendSize[sendMode]*sizeof(float));
+    }
     client.stop();
+}
+
+int tcpReceiveData()
+{
+
+    return 0;
+}
+
+//wifi event handler
+void WiFiEvent(WiFiEvent_t event){
+    switch(event) {
+        case SYSTEM_EVENT_STA_GOT_IP:
+            //When connected set 
+            Serial.print("WiFi connected! IP address: ");
+            Serial.println(WiFi.localIP());  
+            //initializes the UDP state
+            //This initializes the transfer buffer
+            udp.begin(WiFi.localIP(),udpPort);
+            connected = true;
+            break;
+        case SYSTEM_EVENT_STA_DISCONNECTED:
+            Serial.println("WiFi lost connection");
+            connected = false;
+            break;
+        default: break;
+    }
+}
+
+void connectToWiFi(const char * ssid, const char * pwd){
+    Serial.println("Connecting to WiFi network: " + String(ssid));
+
+    // delete old config
+    WiFi.disconnect(true);
+    //register event handler
+    WiFi.onEvent(WiFiEvent);
+
+    //Initiate connection
+    WiFi.begin(ssid, pwd);
+
+    Serial.println("Waiting for WIFI connection...");
+}
+
+void udpSetup(){
+    //Connect to the WiFi network
+    connectToWiFi(ssid, password);
+}
+
+//justfloat
+void udpSendData(){
+    //only send data when connected
+    if(connected){
+        //Send a packet
+        udp.beginPacket(host,udpPort);
+        if(sendMode < sizeof(sendSize) / sizeof(sendSize[0])) {
+            udp.write((uint8_t *)debugData, sendSize[sendMode]*sizeof(float));
+        }
+        udp.endPacket();
+    }
+}
+
+int udpReceiveData()
+{
+
+    return 0;
 }

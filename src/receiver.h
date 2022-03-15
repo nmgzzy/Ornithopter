@@ -2,7 +2,7 @@
 #define __RECEIVER_H__
 
 #include "config.h"
-
+#include "SBUS.h"
 
 
 #endif
