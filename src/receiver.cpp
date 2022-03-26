@@ -1,8 +1,8 @@
 #include "receiver.h"
 
 // a SBUS object, which is on hardware
-// serial port 1
-SBUS x8r(Serial1);
+// serial port 2
+SBUS x8r(Serial2);
 
 // channel, fail safe, and lost frames data
 uint16_t channels[16];

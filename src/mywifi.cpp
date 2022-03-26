@@ -22,7 +22,6 @@ void tcpSetup()
         delay(500);
         Serial.println("...");
     }
- 
     Serial.print("WiFi connected with IP: ");
     Serial.println(WiFi.localIP());
 }
@@ -41,8 +40,35 @@ void tcpSendData()
     client.stop();
 }
 
+bool stringSplit(String src, pair_s &dst) 
+{
+    int index = -1, end = -1;
+    pair_s par;
+    for (int i=0; i < src.length(); i++) {
+        if (src[i] == ':') {
+            index = i;
+        }
+        if(src[i] == '\n') {
+            end = i;
+            break;
+        }
+    }
+    if(index == -1 || end == -1) {
+        return false;
+    }
+    par.name = src.substring(0, index);
+    par.data.par_f = src.substring(index+1, end).toFloat(); //float?
+    dst = par;
+    return true;
+}
+
 int tcpReceiveData()
 {
+    String a = "name:123\n";
+    // while(client.available()) {
+    //     String line = client.readStringUntil('\r');
+    //     Serial.print(line);
+    // }
 
     return 0;
 }

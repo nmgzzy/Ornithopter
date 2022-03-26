@@ -46,6 +46,16 @@ enum sendMode_e {
     MODE_POSE,
 };
 
+union par_u {
+    int par_i;
+    float par_f;
+};
+
+struct pair_s {
+    String name;
+    par_u data;
+};
+
 extern uint8_t sendMode;
 
 void tcpSetup();

@@ -9,5 +9,6 @@
 #include "driver.h"
 #include "control.h"
 #include "mytimer.h"
+#include "myIO.h"
 
 #endif

@@ -6,4 +6,8 @@
 
 extern MPU9250 mpu;
 
+void IMUsetup();
+void printQuaternion();
+void print_roll_pitch_yaw();
+
 #endif

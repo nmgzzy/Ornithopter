@@ -11,12 +11,12 @@
 #define BRUSHLESS_BASE_FREQ     400
 
 // fade LED PIN (replace with LED_BUILTIN constant for built-in LED)
-#define SERVO_PIN_1     1
-#define SERVO_PIN_2     2
-#define SERVO_PIN_3     3
-#define SERVO_PIN_4     4
+#define SERVO_PIN_1     33
+#define SERVO_PIN_2     25
+#define SERVO_PIN_3     26
+#define SERVO_PIN_4     27
 
-#define BRUSHLESS_PIN   5
+#define BRUSHLESS_PIN   12
 
 const uint8_t servo_ch[4] = {0, 1, 2, 3};
 
