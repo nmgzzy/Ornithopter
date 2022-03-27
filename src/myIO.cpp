@@ -1,7 +1,8 @@
 #include "myIO.h"
 
-Led::Led(uint8_t pin)
+Led::Led(uint8_t _pin)
 {
+    pin = _pin;
     pinMode(pin, OUTPUT);
 }
 
@@ -24,8 +25,9 @@ void Led::ledTurn()
 }
 
 
-Key::Key(uint8_t pin)
+Key::Key(uint8_t _pin)
 {
+    pin = _pin;
     pinMode(pin, INPUT);
 }
 
@@ -35,12 +37,22 @@ int8_t Key::keyRead()
     return stat;
 }
 
-bool Key::isClick()
+uint8_t Key::isClick()
 {
     last_stat = stat;
     stat = digitalRead(pin);
-    if (last_stat == LOW && stat == HIGH)
-        return true;
-    return false;
+    if (stat == LOW) {
+        cnt++;
+    }
+    else {
+        cnt = 0;
+    }
+    if (last_stat == LOW && stat == HIGH) {
+        if (cnt > 100) {
+            return 2;
+        }
+        return 1;
+    }
+    return 0;
 }
 

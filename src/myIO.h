@@ -10,7 +10,7 @@
 class Led
 {
 public:
-    uint8_t pin;
+    uint8_t pin = LED_PIN;
     uint8_t stat = HIGH;
 
     Led(uint8_t pin);
@@ -25,10 +25,11 @@ public:
     uint8_t pin;
     uint8_t stat = HIGH;
     uint8_t last_stat = HIGH;
+    uint16_t cnt = 0;
 
     Key(uint8_t pin);
     int8_t keyRead();
-    bool isClick();
+    uint8_t isClick();
 };
 
 #endif

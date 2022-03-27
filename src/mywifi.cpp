@@ -2,18 +2,21 @@
 #include <WiFiUdp.h>
 #include "mywifi.h"
 
-const char* ssid = "ZZZ";
-const char* password =  "so171tf1";
-const uint16_t port = 1347;
-const char * host = "192.168.134.93";
+// const char* ssid = "LENOVO-XIN";
+// const char* password =  "babababa";
+// const char * host = "192.168.137.1";
 
+const char* ssid = "ZZZ-2.4G";
+const char* password =  "so171tf1";
+const char * host = "10.0.0.13";
+const uint16_t port = 1347;
 const int udpPort = 1346;
 boolean connected = false;
 WiFiUDP udp;
 
 float debugData[DEBUGCHANNLE] = {0};
 uint8_t sendSize[] = {0, CN_NUM_DATA, CN_NUM_PAR, CN_NUM_POSE};
-uint8_t sendMode = MODE_NONE;
+uint8_t sendMode = CN_NUM_POSE;
 
 void tcpSetup()
 {
@@ -30,6 +33,7 @@ void tcpSetup()
 void tcpSendData()
 {
     WiFiClient client;
+    debugData[0] = sendMode;
     if (!client.connect(host, port)) {
         Serial.println("Connection to host failed");
         return;
@@ -115,13 +119,17 @@ void udpSetup(){
 //justfloat
 void udpSendData(){
     //only send data when connected
-    if(connected){
+    if(connected) {
         //Send a packet
+        debugData[0] = sendMode;
         udp.beginPacket(host,udpPort);
         if(sendMode < sizeof(sendSize) / sizeof(sendSize[0])) {
             udp.write((uint8_t *)debugData, sendSize[sendMode]*sizeof(float));
         }
         udp.endPacket();
+    }
+    else {
+        Serial.println("udp send error");
     }
 }
 
@@ -129,4 +137,9 @@ int udpReceiveData()
 {
 
     return 0;
+}
+
+void printIP()
+{
+    Serial.println(WiFi.localIP());
 }

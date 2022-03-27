@@ -64,5 +64,6 @@ int  tcpReceiveData();
 void udpSetup();
 void udpSendData();
 int  udpReceiveData();
+void printIP();
 
 #endif
