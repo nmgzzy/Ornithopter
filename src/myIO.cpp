@@ -25,34 +25,39 @@ void Led::ledTurn()
 }
 
 
-Key::Key(uint8_t _pin)
-{
-    pin = _pin;
-    pinMode(pin, INPUT);
-}
+// Key::Key(uint8_t _pin)
+// {
+//     pin = _pin;
+//     pinMode(pin, INPUT);
+// }
 
-int8_t Key::keyRead()
-{
-    stat = digitalRead(pin);
-    return stat;
-}
+// int8_t Key::keyRead()
+// {
+//     stat = digitalRead(pin);
+//     return stat;
+// }
 
-uint8_t Key::isClick()
+// uint8_t Key::isClick()
+// {
+//     last_stat = stat;
+//     stat = digitalRead(pin);
+//     if (stat == LOW) {
+//         cnt++;
+//     }
+//     else {
+//         cnt = 0;
+//     }
+//     if (last_stat == LOW && stat == HIGH) {
+//         if (cnt > 100) {
+//             return 2;
+//         }
+//         return 1;
+//     }
+//     return 0;
+// }
+
+void onBtn1Click(Button2& btn) 
 {
-    last_stat = stat;
-    stat = digitalRead(pin);
-    if (stat == LOW) {
-        cnt++;
-    }
-    else {
-        cnt = 0;
-    }
-    if (last_stat == LOW && stat == HIGH) {
-        if (cnt > 100) {
-            return 2;
-        }
-        return 1;
-    }
-    return 0;
+    ESP.restart();
 }
 

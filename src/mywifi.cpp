@@ -8,9 +8,9 @@
 
 const char* ssid = "ZZZ-2.4G";
 const char* password =  "so171tf1";
-const char * host = "10.0.0.13";
+const char * host = "10.0.0.16";
 const uint16_t port = 1347;
-const int udpPort = 1346;
+const uint16_t udpPort = 1346;
 boolean connected = false;
 WiFiUDP udp;
 
@@ -124,7 +124,8 @@ void udpSendData(){
         debugData[0] = sendMode;
         udp.beginPacket(host,udpPort);
         if(sendMode < sizeof(sendSize) / sizeof(sendSize[0])) {
-            udp.write((uint8_t *)debugData, sendSize[sendMode]*sizeof(float));
+            // udp.write((uint8_t *)debugData, sendSize[sendMode]*sizeof(float));
+            udp.print("12345");
         }
         udp.endPacket();
     }
