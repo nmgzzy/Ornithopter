@@ -4,18 +4,14 @@ IDE: VScode PlatformIO
 MCU: ESP32 pico D4
 Framework: Arduino
 
-
-
 ## Note⚠️:
 
 - Update code before you start work.
 - Each member should work on you branch and use merge request.
 - Write a comment with date, name and what you write when you commit.
 - Make sure there is no compile error before you push.
-- Add comment in *todo list* below when you are working on a module so that others can know.
-- feel free to add features in *todo list*
-
-
+- Add comment in _todo list_ below when you are working on a module so that others can know.
+- feel free to add features in _todo list_
 
 ## TODO List:
 
@@ -36,14 +32,14 @@ Framework: Arduino
 
 ### main
 
-Feel free to write code in *main* for test, but don't commit *main* if necessary.
+Feel free to write code in _main_ for test, but don't commit _main_ if necessary.
 
 ### myIO
 
 - [x] led
 - [x] Button (can add function if needed)
 
-### mytimer
+### mytimer (Filippos is working)
 
 - [x] setup timer
 - [ ] Timer interrupt function used to periodically read sensor control and control the motor
