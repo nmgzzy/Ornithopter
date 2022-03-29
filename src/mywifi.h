@@ -3,7 +3,7 @@
 
 #include "config.h"
 
-#define DEBUGCHANNLE 16
+#define DEBUGCHANNLE 17
 
 extern float debugData[DEBUGCHANNLE];
 
@@ -58,12 +58,10 @@ struct pair_s {
 
 extern uint8_t sendMode;
 
-void tcpSetup();
-void tcpSendData();
-int  tcpReceiveData();
 void udpSetup();
 void udpSendData();
-int  udpReceiveData();
+void udpSendStrData();
+void udpReceiveData();
 void printIP();
 
 #endif

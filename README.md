@@ -36,7 +36,7 @@ Framework: Arduino
 
 ### main
 
-Feel free to write code in *main* for test, but don't commit *main* if necessary.
+Feel free to write code in *main* for test, but don't commit *main* unless necessary.
 
 ### myIO
 
