@@ -1,11 +1,11 @@
 #include "mytimer.h"
 
-#define WAIT_TIME 1000000;
-
 hw_timer_t *timer = NULL;
 // volatile SemaphoreHandle_t timerSemaphore;
 // portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 bool timerEn = true;
+
+int WAIT_TIME = 1000000;
 
 void IRAM_ATTR onTimer()
 {
