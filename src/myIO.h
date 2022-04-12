@@ -34,5 +34,6 @@ public:
 // };
 
 void onBtn1Click(Button2& btn);
+void onBtn2Click(Button2& btn);
 
 #endif

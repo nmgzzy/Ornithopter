@@ -33,6 +33,11 @@ void PWMSetup()
 
     ledcSetup(LEDC_CHANNEL_B, BRUSHLESS_BASE_FREQ, LEDC_TIMER_13_BIT);//1-2ms duty:40-80
     ledcAttachPin(BRUSHLESS_PIN, LEDC_CHANNEL_B);
+    setBrushless(0);
+    setServo(1, 500);
+    setServo(2, 500);
+    setServo(3, 500);
+    setServo(4, 500);
 }
 
 // Arduino like analogWrite

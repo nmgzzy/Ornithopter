@@ -5,6 +5,7 @@
 
 extern bool timerEn;
 extern hw_timer_t * timer;
+extern uint time_count;
 
 void timerSetup();
 

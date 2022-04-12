@@ -4,14 +4,34 @@ hw_timer_t * timer = NULL;
 // volatile SemaphoreHandle_t timerSemaphore;
 // portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 bool timerEn = true;
+uint time_count = 0;
+PID pitchPID, rollPID, yawPID;
 
 void IRAM_ATTR onTimer(){
+    static int output0, output1, output2, output3, output4;
     // // Increment the counter and set the time of ISR
     // portENTER_CRITICAL_ISR(&timerMux);
 
-    //work here
-
-
+    // receiverLoop();
+    float input; // = channels?
+    if (mpu.update()) {
+        pitchPID.compute(mpu.getPitch(), input);
+        rollPID.compute(mpu.getRoll(), input);
+        yawPID.compute(mpu.getGyroZ(), input);
+        output1 =  pitchPID.output + rollPID.output + yawPID.output;
+        output2 = -pitchPID.output + rollPID.output + yawPID.output;
+        output3 = -pitchPID.output - rollPID.output + yawPID.output;
+        output4 =  pitchPID.output - rollPID.output + yawPID.output;
+        setBrushless(output0);
+        setServo(1, output1);
+        setServo(2, output2);
+        setServo(3, output3);
+        setServo(4, output4);
+    }
+    else {
+        Serial.println("mpu read error");
+    }
+    time_count++;
     // portEXIT_CRITICAL_ISR(&timerMux);
     // // Give a semaphore that we can check in the loop
     // xSemaphoreGiveFromISR(timerSemaphore, NULL);
@@ -30,10 +50,10 @@ void timerSetup() {
   // Attach onTimer function to our timer.
   timerAttachInterrupt(timer, &onTimer, true);
 
-  // Set alarm to call onTimer function every second (value in microseconds).
+  // Set alarm to call onTimer function every 5ms.
   // Repeat the alarm (third parameter)
-  timerAlarmWrite(timer, 1000000, true);
-
+  timerAlarmWrite(timer, 5000, true);
+  
   // Start an alarm
   timerAlarmEnable(timer);
 }

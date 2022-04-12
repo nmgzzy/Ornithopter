@@ -4,5 +4,6 @@
 #include "config.h"
 #include "SBUS.h"
 
+void receiverSetup();
 
 #endif

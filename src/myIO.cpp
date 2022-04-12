@@ -61,3 +61,8 @@ void onBtn1Click(Button2& btn)
     ESP.restart();
 }
 
+void onBtn2Click(Button2& btn) 
+{
+    // ESP.restart();
+}
+
