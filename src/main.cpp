@@ -9,19 +9,19 @@ void setup()
     delay(200);
     Serial.begin(115200);
     delay(200);
-    udpSetup();
+    //udpSetup();
     delay(200);
-    IMUsetup();
+    //IMUsetup();
     delay(200);
     led.ledOn();
     btn1.begin(KEY1_PIN);
     btn2.begin(KEY2_PIN);
     btn1.setClickHandler(onBtn1Click);
     btn2.setClickHandler(onBtn2Click);
-    // receiverSetup();???error
-    PWMSetup();
+    receiverSetup();
+    //PWMSetup();
     delay(200);
-    timerSetup();
+    //timerSetup();
 }
 
 void loop()
@@ -50,6 +50,7 @@ void loop()
     }
     btn1.loop();
     btn2.loop();
+    receiverLoop();
     // Serial.printf("%d  %d\n", time_count, cnt);
     delay(10);
 }

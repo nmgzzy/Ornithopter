@@ -5,5 +5,6 @@
 #include "SBUS.h"
 
 void receiverSetup();
+void receiverLoop();
 
 #endif

@@ -18,9 +18,14 @@ void receiverLoop() {
 
   // look for a good SBUS packet from the receiver
   if(x8r.read(&channels[0], &failSafe, &lostFrame)){
-
+    for (uint8_t i = 0; i < 16; i++)
+    {
+      Serial.printf("%d  ", channels[i]);
+    }
+    Serial.println("");
+    
     // write the SBUS packet to an SBUS compatible servo
-    x8r.write(&channels[0]);
+    //x8r.write(&channels[0]);
   }
 }
 
