@@ -2,6 +2,7 @@
 // #include <WiFiUdp.h>
 #include "AsyncUDP.h"
 #include "mywifi.h"
+#include <ArduinoJson.h>
 
 // const char* ssid = "LENOVO-XIN";
 // const char* password =  "babababa";
@@ -110,9 +111,15 @@ bool stringSplit(String src, pair_s &dst)
     return true;
 }
 
-void udpReceiveData()
+void udpReceiveData(char* json)
 {
-    
+    DynamicJsonDocument doc(1024);
+    deserializeJson(doc, json);
+
+    // const char* sensor = doc["sensor"];
+    // long time          = doc["time"];
+    // double latitude    = doc["data"][0];
+    // double longitude   = doc["data"][1];
 }
 
 void printIP()

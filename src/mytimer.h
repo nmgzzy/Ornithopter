@@ -6,6 +6,7 @@
 extern bool timerEn;
 extern hw_timer_t * timer;
 extern uint time_count;
+extern class PID pitchPID, rollPID, yawPID;
 
 void timerSetup();
 

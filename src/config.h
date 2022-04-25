@@ -10,5 +10,6 @@
 #include "control.h"
 #include "mytimer.h"
 #include "myIO.h"
+#include "myeeprom.h"
 
 #endif
