@@ -2,9 +2,10 @@
 #define __RECEIVER_H__
 
 #include "config.h"
-#include "SBUS.h"
 
 void receiverSetup();
-void receiverLoop();
+void receiverRead();
+
+extern uint16_t channels[16];
 
 #endif

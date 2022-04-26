@@ -3,13 +3,14 @@
 
 #include <Arduino.h>
 
-#include "mywifi.h"
 #include "receiver.h"
-#include "imu.h"
-#include "driver.h"
-#include "control.h"
-#include "mytimer.h"
 #include "myIO.h"
+#include "driver.h"
 #include "myeeprom.h"
+#include "imu.h"
+#include "control.h"
+#include "mywifi.h"
+
+extern uint8_t SystemMode;
 
 #endif

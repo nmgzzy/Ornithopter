@@ -1,5 +1,7 @@
 #include "control.h"
+#include "receiver.h"
 
+PID pitchPID, rollPID, yawPID;
 
 void PID::compute(float measurement, float target)
 {
@@ -11,4 +13,47 @@ void PID::compute(float measurement, float target)
     output = output > outputUpLimit ? outputUpLimit : output;
     output = output < outputDownLimit ? outputDownLimit : output;
     last_error = error;
+}
+
+void control()
+{
+    static int output0, output1, output2, output3, output4;
+    float input;
+    receiverRead();
+    if (mpu.update())
+    {
+        pitchPID.compute(mpu.getPitch(), input);
+        rollPID.compute(mpu.getRoll(), input);
+        yawPID.compute(mpu.getGyroZ(), input);
+        output1 = 500 + pitchPID.output + rollPID.output + yawPID.output;
+        output2 = 500 - pitchPID.output + rollPID.output + yawPID.output;
+        output3 = 500 - pitchPID.output - rollPID.output + yawPID.output;
+        output4 = 500 + pitchPID.output - rollPID.output + yawPID.output;
+        output0 = map(channels[2], 179, 1700, 0, 800);////////??????????????
+        if (SystemMode == 2) {
+            setBrushless(output0);
+            setServo(1, output1);
+            setServo(2, output2);
+            setServo(3, output3);
+            setServo(4, output4);
+        }
+        else if (SystemMode == 0){
+            setBrushless(0);
+            setServo(1, output1);
+            setServo(2, output2);
+            setServo(3, output3);
+            setServo(4, output4);
+        }
+        else {
+            setBrushless(0);
+            setServo(1, 500);
+            setServo(2, 500);
+            setServo(3, 500);
+            setServo(4, 500);
+        }
+    }
+    else
+    {
+        Serial.println("mpu read error");
+    }
 }

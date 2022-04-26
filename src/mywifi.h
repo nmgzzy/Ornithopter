@@ -57,6 +57,10 @@ struct pair_s {
 };
 
 extern uint8_t sendMode;
+extern String ssid;
+extern String password;
+extern IPAddress udpHost;
+extern uint16_t udpPort;
 
 void udpSetup();
 void udpSendData();

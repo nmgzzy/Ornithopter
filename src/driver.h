@@ -4,7 +4,7 @@
 #include "config.h"
 
 void PWMSetup();
-void setBrushless(uint32_t value);
-void setServo(uint8_t ch, uint32_t value);
+void setBrushless(int32_t value);
+void setServo(uint8_t ch, int32_t value);
 
 #endif

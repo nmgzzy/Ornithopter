@@ -13,12 +13,19 @@ class Led
 public:
     uint8_t pin = LED_PIN;
     uint8_t stat = HIGH;
+    uint16_t period = 250;
+    unsigned long lasttime = 0;
 
     Led(uint8_t pin);
-    void ledOn();
-    void ledOff();
-    void ledTurn();
+    void on();
+    void off();
+    void turn();
+    void blink();
 };
+
+extern Button2 btn1, btn2;
+
+void BtnSetup();
 
 // class Key
 // {
@@ -32,8 +39,5 @@ public:
 //     int8_t keyRead();
 //     uint8_t isClick();
 // };
-
-void onBtn1Click(Button2& btn);
-void onBtn2Click(Button2& btn);
 
 #endif

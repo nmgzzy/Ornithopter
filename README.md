@@ -22,7 +22,7 @@ Framework: Arduino
 ### control
 
 - [x] PID class
-- [ ] balance control algorithm
+- [x] balance control algorithm
 
 ### driver
 
@@ -32,33 +32,34 @@ Framework: Arduino
 ### imu
 
 - [x] Use library to read data
-- [ ] Calculate angle (Joey is debuging)
+- [x] Calculate angle
 
 ### main
 
-Feel free to write code in *main* for test, but don't commit *main* unless necessary.
 
 ### myIO
 
 - [x] led
-- [x] Button (can add function if needed)
+- [x] Button
 
-### mytimer
-
-- [x] setup timer
-- [ ] Timer interrupt function used to periodically read sensor control and control the motor
+### mytimer(deleted)
 
 ### mywifi (Joey is working)
 
-- [ ] setup udp
-- [ ] Send debug data to PC
-- [ ] Receive instructions from PC
+- [x] setup udp
+- [x] Send debug data to PC
+- [x] Receive instructions from PC
 
 ### receiver
 
-- [ ] use SBUS library to read receiver data
-- [ ] Decode data
+- [x] use SBUS library to read receiver data
+- [x] Decode data
+- [ ] some test work
 
+### myeeprom
+
+- [x] save parameter
+- [x] load parameter
 ### config.h
 
 All head file should be included by config.h

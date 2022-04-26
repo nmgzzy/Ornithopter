@@ -8,10 +8,10 @@
 // const char* password =  "babababa";
 // const char * host = "192.168.137.1";
 
-const char* ssid = "ZZZ-2.4G";
-const char* password =  "so171tf1";
+String ssid = String("ZZZ-2.4G");
+String password =  String("so171tf1");
 IPAddress udpHost = IPAddress(10,0,0,13);
-const uint16_t udpPort = 12345;
+uint16_t udpPort = 12345;
 boolean connected = false;
 AsyncUDP udp;
 
@@ -22,12 +22,10 @@ uint8_t sendMode = MODE_POSE;
 void udpSetup(){
     //Connect to the WiFi network
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+    WiFi.begin(ssid.c_str(), password.c_str());
     if (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("WiFi Failed");
-        while(1) {
-            delay(1000);
-        }
+        return;
     }
     if(udp.connect(udpHost, udpPort)) {
         Serial.println("UDP connected");
@@ -51,7 +49,7 @@ void udpSetup(){
             packet.printf("Got %u bytes of data", packet.length());
         });
         //Send unicast
-        udp.print("Hello Server!");
+        //udp.print("Hello Server!");
     }
     udp.listen(udpPort);
 }

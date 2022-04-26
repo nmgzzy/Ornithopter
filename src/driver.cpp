@@ -8,7 +8,7 @@
 
 // use 5000 Hz as a LEDC base frequency
 #define SERVO_BASE_FREQ         50
-#define BRUSHLESS_BASE_FREQ     400
+#define BRUSHLESS_BASE_FREQ     250
 
 // fade LED PIN (replace with LED_BUILTIN constant for built-in LED)
 #define SERVO_PIN_1     33
@@ -19,6 +19,10 @@
 #define BRUSHLESS_PIN   12
 
 const uint8_t servo_ch[4] = {0, 1, 2, 3};
+const float period = 1000 / BRUSHLESS_BASE_FREQ;
+const float lowDuty = 1.0 * 8192 / period;
+const float highDuty = 2.0 * 8192 / period;
+const float dutyWidth = highDuty - lowDuty;
 
 void PWMSetup()
 {
@@ -42,21 +46,24 @@ void PWMSetup()
 
 // Arduino like analogWrite
 // value has to be between 0 and 1000
-void setBrushless(uint32_t value) 
+
+void setBrushless(int32_t value) 
 {
     // calculate duty, 8191 from 2 ^ 13 - 1
     value = value > 1000 ? 1000 : value;
-    uint32_t duty = 3276 + (value * 3277) / 1000;
+    value = value < 0 ? 0 : value;
+    uint32_t duty = lowDuty + value * dutyWidth / 1000;
     // write duty to LEDC
     ledcWrite(LEDC_CHANNEL_B, duty);
 }
 
 // ch between 1-4
 // value has to be between 0 and 1000
-void setServo(uint8_t ch, uint32_t value) 
+void setServo(uint8_t ch, int32_t value) 
 {
     // calculate duty, 8191 from 2 ^ 13 - 1
     value = value > 1000 ? 1000 : value;
+    value = value < 0 ? 0 : value;
     uint32_t duty = 205 + (value * 819) / 1000;
     // write duty to LEDC
     if (ch > 4 || ch < 1)

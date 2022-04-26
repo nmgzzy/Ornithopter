@@ -1,17 +1,6 @@
-/*
-  ESP32 eeprom_class example with EEPROM library
-  This simple example demonstrates using EEPROM library to store different data in
-  ESP32 Flash memory in a multiple user-defined EEPROM class objects.
-
-  Created for arduino-esp32 on 25 Dec, 2017
-  by Elochukwu Ifediora (fedy0)
-  converted to nvs by lbernstone - 06/22/2019
-*/
-
 #include "EEPROM.h"
 #include "myeeprom.h"
 #include <ArduinoJson.h>
-#include "mytimer.h"
 
 uint16_t parsize = 600;
 
@@ -19,8 +8,8 @@ void readEEPROM()
 {
     EEPROM.begin(parsize);
     String s = EEPROM.readString(0);
-    json2par(s.c_str());
     EEPROM.end();
+    json2par(s.c_str());
 }
 
 void writeEEPROM()
@@ -33,6 +22,7 @@ void writeEEPROM()
         Serial.println("parameter write error!");
     }
     EEPROM.end();
+    Serial.print(s);
 }
 
 void json2par(const char* json)
@@ -57,6 +47,11 @@ void json2par(const char* json)
     yawPID.integLimit = doc["yil"];
     yawPID.outputUpLimit = doc["youl"];
     yawPID.outputDownLimit = doc["yodl"];
+    ssid = String((const char *)doc["ssid"]);
+    password = String((const char *)doc["pswd"]);
+    udpHost = IPAddress();
+    udpHost.fromString((const char *)doc["host"]);
+    udpPort = doc["port"];
 }
 
 void par2json(char* json, uint16_t len)
@@ -84,6 +79,10 @@ void par2json(char* json, uint16_t len)
     doc["yil"] = yawPID.integLimit;
     doc["youl"] = yawPID.outputUpLimit;
     doc["yodl"] = yawPID.outputDownLimit;
+    doc["ssid"] = ssid.c_str();
+    doc["pswd"] = password.c_str();
+    doc["host"] = udpHost.toString().c_str();
+    doc["port"] = udpPort;
 
     serializeJson(doc, json, len);
 }
