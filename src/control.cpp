@@ -18,18 +18,17 @@ void PID::compute(float measurement, float target)
 void control()
 {
     static int output0, output1, output2, output3, output4;
-    float input;
     receiverRead();
     if (mpu.update())
     {
-        pitchPID.compute(mpu.getPitch(), input);
-        rollPID.compute(mpu.getRoll(), input);
-        yawPID.compute(mpu.getGyroZ(), input);
+        pitchPID.compute(mpu.getPitch(), channels[1]-992);
+        rollPID.compute(mpu.getRoll(), channels[0]-992);
+        yawPID.compute(mpu.getGyroZ(), channels[3]-992);
         output1 = 500 + pitchPID.output + rollPID.output + yawPID.output;
         output2 = 500 - pitchPID.output + rollPID.output + yawPID.output;
         output3 = 500 - pitchPID.output - rollPID.output + yawPID.output;
         output4 = 500 + pitchPID.output - rollPID.output + yawPID.output;
-        output0 = map(channels[2], 179, 1700, 0, 800);////////??????????????
+        output0 = map(channels[2], 190, 1790, 0, 800);
         if (SystemMode == 2) {
             setBrushless(output0);
             setServo(1, output1);

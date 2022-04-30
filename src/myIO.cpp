@@ -39,17 +39,17 @@ void Led::blink()
 
 void onBtn1Click(Button2& btn) 
 {
-
+    // writeEEPROM();
 }
 
 void onBtn2Click(Button2& btn) 
 {
-
+    // writeEEPROM();
 }
 
 void onBtn1DoubleClick(Button2& btn) 
 {
-
+    ESP.restart();
 }
 
 void onBtn2DoubleClick(Button2& btn) 
@@ -83,8 +83,8 @@ void BtnSetup()
     btn1.setClickHandler(onBtn1Click);
     btn2.setClickHandler(onBtn2Click);
     btn1.setDoubleClickHandler(onBtn1DoubleClick);
-    btn2.setClickHandler(onBtn2DoubleClick);
-    btn1.setPressedHandler(onBtn12Pressed);
+    btn2.setDoubleClickHandler(onBtn2DoubleClick);
+    // btn1.setPressedHandler(onBtn12Pressed);
 
 }
 

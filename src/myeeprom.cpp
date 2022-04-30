@@ -10,6 +10,7 @@ void readEEPROM()
     String s = EEPROM.readString(0);
     EEPROM.end();
     json2par(s.c_str());
+    Serial.println(s.c_str());
 }
 
 void writeEEPROM()
@@ -49,16 +50,10 @@ void json2par(const char* json)
     yawPID.outputDownLimit = doc["yodl"];
     ssid = String((const char *)doc["ssid"]);
     password = String((const char *)doc["pswd"]);
-    udpHost = IPAddress();
-    udpHost.fromString((const char *)doc["host"]);
-    udpPort = doc["port"];
 }
 
 void par2json(char* json, uint16_t len)
 {
-    // 'pp': 1, 'pi': 0.2, 'pd': 3.5, 'pil': 100, 'poul': 1000, 'podl': 0,
-    // 'rp': 1, 'ri': 0.2, 'rd': 3.5, 'ril': 100, 'roul': 1000, 'rodl': 0,
-    // 'yp': 1, 'yi': 0.2, 'yd': 3.5, 'yil': 100, 'youl': 1000, 'yodl': 0,
     DynamicJsonDocument doc(parsize);
 
     doc["pp"] = pitchPID.Kp;
@@ -81,8 +76,6 @@ void par2json(char* json, uint16_t len)
     doc["yodl"] = yawPID.outputDownLimit;
     doc["ssid"] = ssid.c_str();
     doc["pswd"] = password.c_str();
-    doc["host"] = udpHost.toString().c_str();
-    doc["port"] = udpPort;
 
     serializeJson(doc, json, len);
 }

@@ -16,11 +16,9 @@ void IMUsetup() {
     setting.accel_fchoice = 0x01;
     setting.accel_dlpf_cfg = ACCEL_DLPF_CFG::DLPF_45HZ;
 
-    if (!mpu.setup(0x68, setting)) {  // change to your own address
-        while (1) {
-            Serial.println("MPU connection failed. Please check your connection with `connection_check` example.");
-            delay(3000);
-        }
+    while (!mpu.setup(0x68, setting)) {  // change to your own address
+        Serial.println("MPU connection failed.");
+        delay(2000);
     }
 }
 

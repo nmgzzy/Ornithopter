@@ -4,13 +4,9 @@
 #include "mywifi.h"
 #include <ArduinoJson.h>
 
-// const char* ssid = "LENOVO-XIN";
-// const char* password =  "babababa";
-// const char * host = "192.168.137.1";
-
-String ssid = String("ZZZ-2.4G");
-String password =  String("so171tf1");
-IPAddress udpHost = IPAddress(10,0,0,13);
+String ssid = String("jmi11");
+String password =  String("babababa");
+IPAddress udpHost = IPAddress();
 uint16_t udpPort = 12345;
 boolean connected = false;
 AsyncUDP udp;
@@ -23,35 +19,33 @@ void udpSetup(){
     //Connect to the WiFi network
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid.c_str(), password.c_str());
-    if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    uint8_t i = 0;
+    while (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("WiFi Failed");
-        return;
+        i++;
+        if (i > 3)
+            return;
     }
     if(udp.connect(udpHost, udpPort)) {
         Serial.println("UDP connected");
         udp.onPacket([](AsyncUDPPacket packet) {
             Serial.print("UDP Packet Type: ");
-            Serial.print(packet.isBroadcast()?"Broadcast":packet.isMulticast()?"Multicast":"Unicast");
-            Serial.print(", From: ");
-            Serial.print(packet.remoteIP());
-            Serial.print(":");
-            Serial.print(packet.remotePort());
-            Serial.print(", To: ");
-            Serial.print(packet.localIP());
-            Serial.print(":");
-            Serial.print(packet.localPort());
-            Serial.print(", Length: ");
-            Serial.print(packet.length());
-            Serial.print(", Data: ");
+            Serial.println(packet.isBroadcast()?"Broadcast":packet.isMulticast()?"Multicast":"Unicast");
+            Serial.print("Length: ");
+            Serial.println(packet.length());
+            Serial.print("Data: ");
             Serial.write(packet.data(), packet.length());
             Serial.println();
             //reply to the client
             packet.printf("Got %u bytes of data", packet.length());
+            udpHost = packet.remoteIP();
+            json2par((char *)packet.data());
+            writeEEPROM();
         });
-        //Send unicast
-        //udp.print("Hello Server!");
+        // udp.print("Hello Server! My IP is " + WiFi.localIP().toString());
     }
     udp.listen(udpPort);
+    printIP();
 }
 
 //justfloat
@@ -107,17 +101,6 @@ bool stringSplit(String src, pair_s &dst)
     par.data.par_f = src.substring(index+1, end).toFloat(); //float?
     dst = par;
     return true;
-}
-
-void udpReceiveData(char* json)
-{
-    DynamicJsonDocument doc(1024);
-    deserializeJson(doc, json);
-
-    // const char* sensor = doc["sensor"];
-    // long time          = doc["time"];
-    // double latitude    = doc["data"][0];
-    // double longitude   = doc["data"][1];
 }
 
 void printIP()

@@ -6,9 +6,10 @@ uint8_t SystemMode = 0; //0-debug; 1-safe mode; 2-run;
 
 void setup()
 {
-    delay(300);
+    delay(200);
     Serial.begin(115200);
-    // readEEPROM();
+    delay(300);
+    readEEPROM();
     BtnSetup();
     udpSetup();
     IMUsetup();
@@ -25,5 +26,11 @@ void loop()
     btn2.loop();
     led.blink();
     //wifi
-    delay(1);
+    
+    delay(5);
+    if (count % 10 == 0)
+    {
+        // print_roll_pitch_yaw();
+    }
+    
 }
