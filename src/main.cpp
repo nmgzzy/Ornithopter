@@ -9,12 +9,14 @@ void setup()
     delay(200);
     Serial.begin(115200);
     delay(300);
+    BtnSetup();
     readEEPROM();
     BtnSetup();
     udpSetup();
     IMUsetup();
     receiverSetup();
     PWMSetup();
+    Serial.println("setup Success");
     delay(200);
 }
 

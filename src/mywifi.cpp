@@ -6,7 +6,7 @@
 
 String ssid = String("jmi11");
 String password =  String("babababa");
-IPAddress udpHost = IPAddress();
+IPAddress udpHost = IPAddress(0,0,0,0);
 uint16_t udpPort = 12345;
 boolean connected = false;
 AsyncUDP udp;
@@ -17,6 +17,7 @@ uint8_t sendMode = MODE_POSE;
 
 void udpSetup(){
     //Connect to the WiFi network
+    Serial.println("wifi connecting...");
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid.c_str(), password.c_str());
     uint8_t i = 0;

@@ -20,6 +20,7 @@ void IMUsetup() {
         Serial.println("MPU connection failed.");
         delay(2000);
     }
+    Serial.println("MPU connection success.");
 }
 
 void print_roll_pitch_yaw() 
