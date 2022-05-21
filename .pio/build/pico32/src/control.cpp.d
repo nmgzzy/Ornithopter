@@ -132,4 +132,5 @@
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
  .pio/libdeps/pico32/MPU9250/MPU9250/MPU9250RegisterMap.h \
- .pio/libdeps/pico32/MPU9250/MPU9250/QuaternionFilter.h src/mywifi.h
+ .pio/libdeps/pico32/MPU9250/MPU9250/QuaternionFilter.h src/mywifi.h \
+ src/BLE.h

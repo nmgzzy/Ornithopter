@@ -132,6 +132,6 @@
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
  .pio/libdeps/pico32/MPU9250/MPU9250/MPU9250RegisterMap.h \
  .pio/libdeps/pico32/MPU9250/MPU9250/QuaternionFilter.h src/control.h \
- src/mywifi.h \
+ src/mywifi.h src/BLE.h \
  .pio/libdeps/pico32/Bolder\ Flight\ Systems\ SBUS/src/SBUS.h \
  .pio/libdeps/pico32/Bolder\ Flight\ Systems\ SBUS/src/elapsedMillis.h

@@ -1,6 +1,6 @@
 #include "myIO.h"
 
-Button2 btn1, btn2;
+// Button2 btn1, btn2;
 
 Led::Led(uint8_t _pin)
 {
@@ -37,56 +37,56 @@ void Led::blink()
     }
 }
 
-void onBtn1Click(Button2& btn) 
-{
-    // writeEEPROM();
-}
+// void onBtn1Click(Button2& btn) 
+// {
+//     // writeEEPROM();
+// }
 
-void onBtn2Click(Button2& btn) 
-{
-    // writeEEPROM();
-}
+// void onBtn2Click(Button2& btn) 
+// {
+//     // writeEEPROM();
+// }
 
-void onBtn1DoubleClick(Button2& btn) 
-{
-    ESP.restart();
-}
+// void onBtn1DoubleClick(Button2& btn) 
+// {
+//     ESP.restart();
+// }
 
-void onBtn2DoubleClick(Button2& btn) 
-{
-    if (SystemMode == 0) {
-        SystemMode = 1;
-    }
-    else if (SystemMode == 1 && channels[2] < 200) {
-        SystemMode = 2;
-    }
-}
+// void onBtn2DoubleClick(Button2& btn) 
+// {
+//     if (SystemMode == 0) {
+//         SystemMode = 1;
+//     }
+//     else if (SystemMode == 1 && channels[2] < 200) {
+//         SystemMode = 2;
+//     }
+// }
 
-void onBtn12Pressed(Button2& btn) 
-{
-    static uint8_t t = 0;
-    if (btn2.getState() == LOW){
-        t++;
-        if (t > 100) {
-            ESP.restart();
-        }
-    }
-    else {
-        t = 0;
-    }
-}
+// void onBtn12Pressed(Button2& btn) 
+// {
+//     static uint8_t t = 0;
+//     if (btn2.getState() == LOW){
+//         t++;
+//         if (t > 100) {
+//             ESP.restart();
+//         }
+//     }
+//     else {
+//         t = 0;
+//     }
+// }
 
-void BtnSetup()
-{
-    btn1.begin(KEY1_PIN);
-    btn2.begin(KEY2_PIN);
-    btn1.setClickHandler(onBtn1Click);
-    btn2.setClickHandler(onBtn2Click);
-    btn1.setDoubleClickHandler(onBtn1DoubleClick);
-    btn2.setDoubleClickHandler(onBtn2DoubleClick);
-    // btn1.setPressedHandler(onBtn12Pressed);
+// void BtnSetup()
+// {
+//     btn1.begin(KEY1_PIN);
+//     btn2.begin(KEY2_PIN);
+//     btn1.setClickHandler(onBtn1Click);
+//     btn2.setClickHandler(onBtn2Click);
+//     btn1.setDoubleClickHandler(onBtn1DoubleClick);
+//     btn2.setDoubleClickHandler(onBtn2DoubleClick);
+//     // btn1.setPressedHandler(onBtn12Pressed);
 
-}
+// }
 
 
 // Key::Key(uint8_t _pin)

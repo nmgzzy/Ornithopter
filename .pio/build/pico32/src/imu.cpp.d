@@ -126,7 +126,7 @@
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/spi_flash/include/esp_spi_flash_counters.h \
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/variants/pico32/pins_arduino.h \
  src/receiver.h src/myIO.h .pio/libdeps/pico32/Button2/src/Button2.h \
- src/driver.h src/myeeprom.h src/control.h src/mywifi.h \
+ src/driver.h src/myeeprom.h src/control.h src/mywifi.h src/BLE.h \
  .pio/libdeps/pico32/MPU9250/MPU9250.h \
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
  /Users/joeyzhao/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \

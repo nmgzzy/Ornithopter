@@ -23,9 +23,9 @@ public:
     void blink();
 };
 
-extern Button2 btn1, btn2;
+// extern Button2 btn1, btn2;
 
-void BtnSetup();
+// void BtnSetup();
 
 // class Key
 // {

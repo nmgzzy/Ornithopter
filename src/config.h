@@ -10,7 +10,8 @@
 #include "imu.h"
 #include "control.h"
 #include "mywifi.h"
+#include "BLE.h"
 
 extern uint8_t SystemMode;
-
+extern uint count;
 #endif

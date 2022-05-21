@@ -2,16 +2,20 @@
 #include "SBUS.h"
 
 // #define SBUSRX 2
-// #define SBUSTX 32
 
-// a SBUS object, which is on hardware
-// serial port 2
 SBUS x8r(Serial2);
 
 // channel, fail safe, and lost frames data
 uint16_t channels[16];
 bool failSafe;
 bool lostFrame;
+uint8_t SystemMode = 0; //0-debug; 1-safe mode; 2-run;
+uint8_t SafeFlag = 0;
+int16_t resetCnt = 0;
+
+bool isIn(int16_t x, int16_t y) {
+    return (x <= y+100 && x >= y-100);
+}
 
 void receiverSetup()
 {
@@ -25,7 +29,32 @@ void receiverRead()
 	// 	channels[i] = channels[i] < 190 ? 190 : channels[i];
 	// 	channels[i] = channels[i] > 1790 ? 1790 : channels[i];
 	// }
+	if (SafeFlag == 0 && isIn(channels[5], 190)) {  //unlock
+        SafeFlag = 1;
+    }
+    if (SafeFlag == 1) {
+        if (isIn(channels[5], 190)) {
+            SystemMode = 0;
+        }
+        else if (isIn(channels[5], 992)){
+            SystemMode = 1;
+        }
+        else if (isIn(channels[5], 1790)){
+            SystemMode = 2;
+        }
+    }
+    if(isIn(channels[6], 1790)) {  //reset
+        resetCnt++;
+        if (resetCnt > 200) {
+            ESP.restart();
+        } 
+    }
+    else {
+        resetCnt = 0;
+    }
 }
+
+
 
 // uint32_t normaliseData(int value){
 //   int minvalue = 172;
